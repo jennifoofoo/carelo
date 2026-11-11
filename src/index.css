@@ -1,0 +1,519 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Carelo – Warm, Bright, Modern Orange/Yellow Design System */
+
+@layer base {
+  :root {
+    /* Primary - Vibrant Professional Orange */
+    --primary: 18 84% 54%;               /* #EB6A2A */
+    --primary-light: 18 84% 64%;         /* Lighter orange for hover */
+    --primary-foreground: 0 0% 100%;     /* White text on primary */
+    
+    /* Secondary - Warm Yellow */
+    --secondary-accent: 40 100% 64%;     /* #FFC347 */
+    
+    /* Background & Surfaces */
+    --background: 0 0% 100%;             /* Pure white #FFFFFF */
+    --background-soft: 36 100% 96%;      /* #FFF8ED - Soft warm tint */
+    --card: 0 0% 100%;                   /* Pure white */
+    --card-foreground: 0 0% 18%;         /* #2E2E2E - Graphite */
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 18%;
+    
+    /* Text Colors - Graphite based */
+    --foreground: 0 0% 18%;              /* #2E2E2E - Graphite */
+    --muted: 40 10% 96%;                 /* #F5F5F3 - Warm Light Grey */
+    --muted-foreground: 0 0% 28%;        /* Darker grey text for better readability */
+    --disabled: 0 0% 65%;
+    
+    /* Neutrals & Borders */
+    --border: 40 8% 88%;                 /* Warm light border */
+    --input: 40 10% 96%;                 /* #F5F5F3 */
+    --ring: 18 84% 54%;                  /* Orange focus ring */
+    
+    /* Secondary - UI surfaces */
+    --secondary: 40 10% 96%;             /* #F5F5F3 */
+    --secondary-foreground: 0 0% 18%;
+    
+    /* Accent - Warm Orange (micro-accent) */
+    --accent: 18 84% 54%;                /* #EB6A2A - Orange */
+    --accent-foreground: 0 0% 100%;
+    
+    /* Functional Colors */
+    --success: 18 84% 54%;               /* Orange - unified with primary */
+    --success-foreground: 0 0% 100%;
+    --warning: 40 100% 64%;              /* #FFC347 - Warm Yellow */
+    --warning-foreground: 0 0% 18%;
+    --destructive: 0 70% 55%;            /* Red */
+    --destructive-foreground: 0 0% 100%;
+    --info: 18 70% 60%;                  /* Lighter Orange */
+    
+    /* Named colors */
+    --orange: 18 84% 54%;                /* #EB6A2A */
+    --yellow: 40 100% 64%;               /* #FFC347 */
+    --sage: 18 84% 54%;                  /* Orange - replacing sage */
+    --graphite: 0 0% 18%;                /* #2E2E2E */
+    --warm-grey: 40 10% 96%;             /* #F5F5F3 */
+    --soft-warm: 36 100% 96%;            /* #FFF8ED */
+    
+    /* Pitch Deck Design System - Unified Typography & Spacing */
+    --pitch-bg: 30 33% 97%;              /* #FAF7F4 */
+    --pitch-text: 0 0% 10%;              /* #1A1A1A */
+    --pitch-heading: 0 0% 10%;           /* #1A1A1A - Title color */
+    --pitch-subheading: 0 0% 13%;        /* #222222 - H2 color */
+    --pitch-body: 0 0% 29%;              /* #4A4A4A - Body text */
+    --pitch-muted: 0 0% 44%;             /* #707070 - Captions/descriptions */
+    --pitch-border: 0 0% 90%;            /* #E5E5E5 - Card borders */
+    --pitch-problem: 9 85% 58%;          /* Darker, more saturated red */
+    --pitch-problem-dark: 9 75% 42%;     /* Even darker for text/icons */
+    --pitch-solution: 158 72% 42%;       /* Emerald green #1DB077 */
+    --pitch-solution-dark: 158 72% 35%;  /* Darker green for text/icons */
+    
+    /* UNIFIED PITCH SPACING SYSTEM */
+    --pitch-edge-top: 72px;              /* Distance from top edge to capsule */
+    --pitch-edge-left: 72px;             /* Distance from left edge */
+    --pitch-capsule-gap: 24px;           /* Gap between capsule and heading */
+    --pitch-heading-gap: 32px;           /* Gap below heading to subtitle */
+    --pitch-content-gap: 64px;           /* Gap from subtitle to content */
+    --pitch-footer-bottom: 96px;         /* CTA/footer from bottom */
+    --pitch-column-gap: 48px;            /* Standard column gaps */
+    --pitch-card-radius: 16px;           /* QR cards, feature cards */
+    --pitch-card-padding: 24px;          /* Standard card padding */
+    --pitch-qr-label-gap: 16px;          /* Gap below QR to label */
+    
+    /* Spacing increments: 24px, 32px, 48px, 64px only */
+    --pitch-space-sm: 24px;
+    --pitch-space-md: 32px;
+    --pitch-space-lg: 48px;
+    --pitch-space-xl: 64px;
+    
+    /* Radius - clean, modern */
+    --radius: 0.375rem;                  /* 6px */
+  }
+
+  .dark {
+    --background: 0 0% 8%;
+    --foreground: 0 0% 95%;
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 18 84% 54%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 0 0% 18%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 152 30% 45%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 20%;
+    --input: 0 0% 18%;
+    --ring: 18 84% 54%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.6;
+    letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  h1 {
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    font-size: clamp(28px, 4vw, 48px);
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: hsl(var(--foreground));
+  }
+  
+  h2 {
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: hsl(var(--foreground));
+  }
+  
+  h3 {
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    font-size: clamp(18px, 2vw, 24px);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    color: hsl(var(--foreground));
+  }
+  
+  h4, h5, h6 {
+    font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    color: hsl(var(--foreground));
+  }
+  
+  .text-body-lg {
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+  
+  .text-body-md {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.6;
+  }
+  
+  .text-body-sm {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.5;
+  }
+  
+  .text-muted {
+    color: hsl(var(--muted-foreground));
+    font-weight: 500;  /* Medium weight for better readability */
+  }
+  
+  .text-label {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+    letter-spacing: 0.01em;
+  }
+  
+  .text-section-label {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: hsl(var(--primary));
+  }
+  
+  button, input, select, textarea, 
+  [role="button"], [role="tab"], [role="menuitem"],
+  .btn, .badge, .tag, .label, .card, .dialog, .modal {
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
+  }
+}
+
+/* Animations */
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-out forwards;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.4s ease-out forwards;
+  }
+  
+  .bg-gradient-orange {
+    background: linear-gradient(135deg, hsl(18 84% 54%), hsl(18 84% 64%));
+  }
+  
+  .bg-gradient-warm {
+    background: linear-gradient(180deg, hsl(0 0% 100%), hsl(36 100% 98%));
+  }
+  
+  /* Mobile safe area utilities */
+  .safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .safe-area-left {
+    padding-left: env(safe-area-inset-left);
+  }
+  
+  .safe-area-right {
+    padding-right: env(safe-area-inset-right);
+  }
+  
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Touch-friendly active states */
+  .active\:scale-98:active {
+    transform: scale(0.98);
+  }
+  
+  /* Line clamp utilities */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes waveform {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s ease-in-out infinite;
+}
+
+.animate-waveform {
+  animation: waveform 0.8s ease-in-out infinite;
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Components */
+@layer components {
+  .card-elevated {
+    @apply bg-card border border-border;
+    border-radius: 6px;
+  }
+  
+  .card-interactive {
+    @apply bg-card border border-border transition-colors duration-150;
+    border-radius: 6px;
+  }
+  
+  .card-interactive:hover {
+    background: hsl(var(--muted));
+  }
+  
+  .section-container {
+    @apply max-w-4xl mx-auto px-4 md:px-6;
+  }
+  
+  .section-container-wide {
+    @apply max-w-6xl mx-auto px-4 md:px-6;
+  }
+  
+  .badge {
+    @apply inline-flex items-center gap-1 px-2 py-0.5;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 4px;
+    border: 1px solid hsl(var(--border));
+    background: hsl(var(--muted));
+    color: hsl(var(--muted-foreground));
+  }
+  
+  .badge-primary {
+    background: hsl(var(--primary) / 0.1);
+    color: hsl(var(--primary));
+    border-color: hsl(var(--primary) / 0.2);
+  }
+  
+  .badge-warning {
+    background: hsl(var(--warning) / 0.15);
+    color: hsl(var(--foreground));
+    border-color: hsl(var(--warning) / 0.3);
+  }
+  
+  .badge-success {
+    background: hsl(var(--success) / 0.1);
+    color: hsl(var(--success));
+    border-color: hsl(var(--success) / 0.2);
+  }
+  
+  /* Primary button */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5;
+    font-size: 14px;
+    font-weight: 500;
+    background: hsl(var(--primary));
+    color: white;
+    border-radius: 6px;
+    transition: background 0.15s ease;
+  }
+  
+  .btn-primary:hover {
+    background: hsl(var(--primary-light));
+  }
+  
+  /* Secondary button */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-5 py-2.5;
+    font-size: 14px;
+    font-weight: 500;
+    background: transparent;
+    color: hsl(var(--foreground));
+    border: 1px solid hsl(var(--border));
+    border-radius: 6px;
+    transition: background 0.15s ease;
+  }
+  
+  .btn-secondary:hover {
+    background: hsl(var(--muted));
+  }
+  
+  /* Ghost button */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2;
+    font-size: 14px;
+    font-weight: 500;
+    background: transparent;
+    color: hsl(var(--muted-foreground));
+    border-radius: 6px;
+    transition: background 0.15s ease;
+  }
+  
+  .btn-ghost:hover {
+    background: hsl(var(--muted));
+    color: hsl(var(--foreground));
+  }
+  
+  .text-link {
+    font-size: 14px;
+    font-weight: 500;
+    color: hsl(var(--primary));
+    transition: opacity 0.15s ease;
+  }
+  
+  .text-link:hover {
+    opacity: 0.8;
+  }
+  
+  .section-warm {
+    @apply bg-background;
+  }
+  
+  .section-soft {
+    background: hsl(var(--soft-warm));
+  }
+  
+  .text-secondary-custom {
+    color: hsl(var(--muted-foreground));
+  }
+  
+  .text-disabled {
+    color: hsl(var(--disabled));
+  }
+  
+  .list-row {
+    @apply flex items-center gap-3 px-3 py-2 rounded-md transition-colors duration-100;
+  }
+  
+  .list-row:hover {
+    background: hsl(var(--muted));
+  }
+  
+  .list-row-selected {
+    background: hsl(var(--primary) / 0.08);
+  }
+  
+  .divider {
+    height: 1px;
+    background: hsl(var(--border));
+    margin: 16px 0;
+  }
+  
+  /* Risk/Warning indicator - Yellow */
+  .risk-indicator {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1;
+    font-size: 13px;
+    font-weight: 500;
+    background: hsl(var(--warning) / 0.15);
+    color: hsl(var(--foreground));
+    border-radius: 4px;
+  }
+  
+  /* Success state */
+  .success-state {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1;
+    font-size: 13px;
+    font-weight: 500;
+    background: hsl(var(--success) / 0.1);
+    color: hsl(var(--success));
+    border-radius: 4px;
+  }
+}
+
+section {
+  position: relative;
+}
+
+::selection {
+  background: hsl(var(--primary) / 0.2);
+}
+
+.slider-track {
+  @apply relative h-1 w-full rounded-full bg-border overflow-hidden;
+}
+
+.slider-range {
+  @apply absolute h-full bg-primary;
+}
+
+.slider-thumb {
+  @apply block h-5 w-5 rounded border-2 border-primary bg-card cursor-grab active:cursor-grabbing;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}

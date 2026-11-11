@@ -1,0 +1,64 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+backend/venv/
+backend/env/
+*.egg-info/
+.eggs/
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+dist/
+build/
+
+# Environment
+.env
+.env.local
+.env.production
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Testing
+.pytest_cache/
+htmlcov/
+.coverage
+*.cover
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+carelo.db
+
+# Logs
+*.log
+/tmp/
+
+# Git
+.git/
+.gitignore
+
+# Documentation (not needed in container)
+*.md
+docs/
+
+# Tests
+test_*.py
+*_test.py
+tests/
+
+# Deployment files
+docker-compose.yml
+docker-compose.prod.yml
+Dockerfile
+Dockerfile.prod

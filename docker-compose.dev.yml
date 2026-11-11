@@ -1,0 +1,106 @@
+# Development Docker Compose - Hot Reload Enabled
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: carelo-postgres-dev
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: carelo_db
+      POSTGRES_USER: carelo_user
+      POSTGRES_PASSWORD: carelo_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data_dev:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U carelo_user -d carelo_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - carelo-dev-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: carelo-redis-dev
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data_dev:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - carelo-dev-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: carelo-backend-dev
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://carelo_user:carelo_password@postgres:5432/carelo_db
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/1
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - STORAGE_TYPE=local
+      - LOCAL_STORAGE_PATH=/app/storage
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY:-carelo-dev-secret-key}
+      - CORS_ORIGINS=http://localhost:3000,http://localhost:8080,http://localhost:80
+    volumes:
+      - ./backend:/app
+      - backend_storage_dev:/app/storage
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - carelo-dev-network
+    command: ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+
+  celery-worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.celery
+    container_name: carelo-celery-worker-dev
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=postgresql://carelo_user:carelo_password@postgres:5432/carelo_db
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/1
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - STORAGE_TYPE=local
+      - LOCAL_STORAGE_PATH=/app/storage
+    volumes:
+      - ./backend:/app
+      - backend_storage_dev:/app/storage
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      backend:
+        condition: service_started
+    networks:
+      - carelo-dev-network
+
+volumes:
+  postgres_data_dev:
+  redis_data_dev:
+  backend_storage_dev:
+
+networks:
+  carelo-dev-network:
+    driver: bridge
+

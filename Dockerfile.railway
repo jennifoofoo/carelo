@@ -1,0 +1,64 @@
+# Multi-stage build for Railway deployment
+# Stage 1: Build Frontend
+FROM node:18-alpine AS frontend-build
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+RUN npm ci
+
+# Copy frontend source
+COPY . .
+
+# Build frontend - use empty API URL for same-domain deployment
+ENV VITE_API_BASE_URL=""
+RUN npm run build
+
+# Stage 2: Backend + Nginx
+FROM python:3.11-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    tesseract-ocr \
+    tesseract-ocr-deu \
+    ffmpeg \
+    postgresql-client \
+    nginx \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /app
+
+# Copy backend requirements and install
+COPY backend/requirements.txt ./backend/
+RUN pip install --no-cache-dir -r backend/requirements.txt
+
+# Copy backend code
+COPY backend/ ./backend/
+
+# Copy built frontend from stage 1
+COPY --from=frontend-build /app/dist /app/frontend
+
+# Create necessary directories
+RUN mkdir -p /app/uploads /app/logs
+
+# Configure Nginx
+RUN rm /etc/nginx/sites-enabled/default
+COPY nginx.railway.conf /etc/nginx/sites-available/carelo
+RUN ln -s /etc/nginx/sites-available/carelo /etc/nginx/sites-enabled/
+
+# Expose port
+EXPOSE 8000
+
+# Start script
+COPY start-railway.sh /app/
+RUN chmod +x /app/start-railway.sh
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
+    CMD curl -f http://localhost:8000/health || exit 1
+
+CMD ["/app/start-railway.sh"]
+
